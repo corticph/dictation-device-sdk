@@ -140,7 +140,7 @@ export class DictationDeviceManager {
     this.failIfNotInitialized();
 
     const hidDevices = await this.hidApi.requestDevice({
-      filters: getFilters(),
+      filters: getDeviceFilters(),
     });
 
     const devices = await this.createAndAddInitializedDevices(hidDevices);
@@ -283,7 +283,7 @@ export class DictationDeviceManager {
   }
 }
 
-function getFilters(): HIDDeviceFilter[] {
+export function getDeviceFilters(): HIDDeviceFilter[] {
   const filters: HIDDeviceFilter[] = [];
   for (const implType of Object.values(ImplementationType)) {
     if (typeof implType === 'string') continue;
