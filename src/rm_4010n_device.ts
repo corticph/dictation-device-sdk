@@ -85,7 +85,8 @@ export class RM4010NDevice extends DictationDeviceBase {
   }
 
   protected isMotionEvent(data: DataView): boolean {
-    if (data.byteLength < MOTION_EVENT_OFFSET + MOTION_EVENT_SIGNATURE.length) {
+    if (data.byteLength <
+        MOTION_EVENT_OFFSET + MOTION_EVENT_SIGNATURE.length + 1) {
       return false;
     }
     for (let i = 0; i < MOTION_EVENT_SIGNATURE.length; i++) {
