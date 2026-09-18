@@ -45,12 +45,12 @@ If your browser runs remotely (e.g. Citrix Virtual Apps and Desktops, VMware Hor
 ### Sample usage
 
 #### NPM package
-[Link to package](https://www.npmjs.com/package/dictation-device-sdk)
+[Link to package](https://www.npmjs.com/package/@corti/dictation-device-sdk)
 
-Run `npm install dictation-device-sdk` to install the package as a dependency and then use as
+Run `npm install @corti/dictation-device-sdk` to install the package as a dependency and then use as
 
 ```typescript
-import { DictationDevice, ButtonEvent, DictationDeviceManager } from 'dictation-device-sdk';
+import { DictationDevice, ButtonEvent, DictationDeviceManager } from '@corti/dictation-device-sdk';
 
 const manager = new DictationDeviceManager();
 // Your code here
