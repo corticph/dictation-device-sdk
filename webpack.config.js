@@ -23,6 +23,23 @@ const TerserPlugin = require('terser-webpack-plugin');
 const DtsBundlePlugin = require('dts-bundle-webpack');
 const libraryName = 'DictationSupport';
 
+const commonModule = {
+  rules: [
+    {
+      test: /\.ts?$/,
+      use: 'ts-loader',
+      exclude: /node_modules/,
+    },
+  ],
+};
+
+const commonResolve = { extensions: ['.ts'] };
+
+const commonOptimization = {
+  minimize: true,
+  minimizer: [new TerserPlugin()],
+};
+
 module.exports = {
   entry: './src/index.ts',
   output: {
@@ -32,22 +49,10 @@ module.exports = {
     libraryTarget: 'umd',
     umdNamedDefine: true,
   },
-  resolve : {extensions : ['.ts']},
-  devtool : 'source-map',
-  optimization : {
-    minimize : true,
-    minimizer : [new TerserPlugin()],
-  },
-  module : {
-    rules :
-          [
-            {
-              test : /\.ts?$/,
-              use : 'ts-loader',
-              exclude : /node_modules/,
-            },
-          ],
-  },
+  resolve: commonResolve,
+  devtool: 'source-map',
+  optimization: commonOptimization,
+  module: commonModule,
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'example/index.ejs'),
@@ -58,8 +63,7 @@ module.exports = {
       main: 'dist/out-tsc/index.d.ts',
       out: '../index.d.ts',
       removeSource: true,
-      outputAsModuleFolder: true, // to use npm in-package typings
+      outputAsModuleFolder: true,
     }),
   ],
 };
- 

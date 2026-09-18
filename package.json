@@ -3,7 +3,7 @@
   "version": "1.0.5",
   "description": "SDK to interact with dictation devices",
   "scripts": {
-    "build": "rimraf dist && npx webpack --config=webpack.config.js",
+    "build": "rimraf dist && npx webpack --config=webpack.config.js && npx tsc -p tsconfig.esm.json",
     "lint": "eslint --ignore-path .gitignore --ext .ts .",
     "format": "git clang-format",
     "formatCheck": "git clang-format --diff",
@@ -13,9 +13,18 @@
   "author": "hendrich@google.com",
   "license": "Apache-2.0",
   "main": "dist/index.js",
+  "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "files": [
     "/dist/index.js",
+    "/dist/esm/",
     "/dist/index.d.ts"
   ],
   "repository": {
@@ -24,6 +33,7 @@
   },
   "devDependencies": {
     "@types/jasmine": "^4.3.0",
+    "@types/w3c-web-hid": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
     "clang-format": "^1.8.0",
@@ -53,7 +63,5 @@
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.3"
   },
-  "dependencies": {
-    "@types/w3c-web-hid": "^1.0.3"
-  }
+  "dependencies": {}
 }
