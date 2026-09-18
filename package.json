@@ -7,7 +7,7 @@
     "lint": "eslint --ignore-path .gitignore --ext .ts .",
     "format": "git clang-format",
     "formatCheck": "git clang-format --diff",
-    "prepare": "husky install",
+    "prepare": "husky install && npm run build",
     "test": "karma start karma.unit.js"
   },
   "author": "hendrich@google.com",
