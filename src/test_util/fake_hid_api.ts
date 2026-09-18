@@ -4,9 +4,9 @@ type DeviceEventListener = (event: HIDConnectionEvent) => void|Promise<void>;
 
 export class FakeHidApi implements HID {
   /* eslint-disable  @typescript-eslint/no-explicit-any */
-  onconnect: ((this: this, ev: Event) => any)|null = null;
+  onconnect: ((ev: Event) => any)|null = null;
   /* eslint-disable  @typescript-eslint/no-explicit-any */
-  ondisconnect: ((this: this, ev: Event) => any)|null = null;
+  ondisconnect: ((ev: Event) => any)|null = null;
 
   protected readonly connectListeners = new Set<DeviceEventListener>();
   protected readonly disconnectListeners = new Set<DeviceEventListener>();
@@ -35,20 +35,30 @@ export class FakeHidApi implements HID {
   }
 
   addEventListener(
-      type: 'connect'|'disconnect', listener: DeviceEventListener) {
+      type: 'connect'|'disconnect', listener: (ev: HIDConnectionEvent) => any,
+      useCapture?: boolean): void;
+  addEventListener(
+      type: string, listener: EventListenerOrEventListenerObject|null,
+      options?: boolean|AddEventListenerOptions): void;
+  addEventListener(type: string, listener: unknown): void {
     if (type === 'connect') {
-      this.connectListeners.add(listener);
+      this.connectListeners.add(listener as DeviceEventListener);
     } else {
-      this.disconnectListeners.add(listener);
+      this.disconnectListeners.add(listener as DeviceEventListener);
     }
   }
 
   removeEventListener(
-      type: 'connect'|'disconnect', listener: DeviceEventListener) {
+      type: 'connect'|'disconnect', callback: (ev: HIDConnectionEvent) => any,
+      useCapture?: boolean): void;
+  removeEventListener(
+      type: string, callback: EventListenerOrEventListenerObject|null,
+      options?: EventListenerOptions|boolean): void;
+  removeEventListener(type: string, callback: unknown): void {
     if (type === 'connect') {
-      this.connectListeners.delete(listener);
+      this.connectListeners.delete(callback as DeviceEventListener);
     } else {
-      this.disconnectListeners.delete(listener);
+      this.disconnectListeners.delete(callback as DeviceEventListener);
     }
   }
 
