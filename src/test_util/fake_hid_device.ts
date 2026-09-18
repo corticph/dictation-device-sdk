@@ -4,7 +4,7 @@ type SendReportReceiver = (reportId: number, data: BufferSource) => void;
 
 export class FakeHidDevice implements HIDDevice {
   /* eslint-disable  @typescript-eslint/no-explicit-any */
-  oninputreport: ((this: HIDDevice, ev: HIDInputReportEvent) => any)|null;
+  oninputreport: ((ev: HIDInputReportEvent) => any)|null = null;
   opened = false;
   readonly vendorId: number;
   readonly productId: number;
@@ -68,12 +68,24 @@ export class FakeHidDevice implements HIDDevice {
     throw new Error('Not implemented');
   }
 
-  addEventListener(type: string, listener: InputReportListener) {
-    if (type === 'inputreport') this.inputReportListeners.add(listener);
+  addEventListener(
+      type: 'inputreport', listener: (ev: HIDInputReportEvent) => any): void;
+  addEventListener(
+      type: string, listener: EventListenerOrEventListenerObject|null,
+      options?: boolean|AddEventListenerOptions): void;
+  addEventListener(type: string, listener: unknown): void {
+    if (type === 'inputreport')
+      this.inputReportListeners.add(listener as InputReportListener);
   }
 
-  removeEventListener(type: string, listener: InputReportListener) {
-    if (type === 'inputreport') this.inputReportListeners.delete(listener);
+  removeEventListener(
+      type: 'inputreport', callback: (ev: HIDInputReportEvent) => any): void;
+  removeEventListener(
+      type: string, callback: EventListenerOrEventListenerObject|null,
+      options?: EventListenerOptions|boolean): void;
+  removeEventListener(type: string, callback: unknown): void {
+    if (type === 'inputreport')
+      this.inputReportListeners.delete(callback as InputReportListener);
   }
 
   async handleInputReport(data: number[]) {
