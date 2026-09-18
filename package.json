@@ -1,7 +1,7 @@
 {
-  "name": "dictation_support",
-  "version": "1.0.5",
-  "description": "SDK to interact with dictation devices",
+  "name": "dictation-device-sdk",
+  "version": "1.1.0",
+  "description": "SDK to interact with dictation devices — fork of GoogleChromeLabs/dictation_support",
   "scripts": {
     "build": "rimraf dist && npx webpack --config=webpack.config.js && npx tsc -p tsconfig.esm.json",
     "lint": "eslint --ignore-path .gitignore --ext .ts .",
@@ -10,7 +10,7 @@
     "prepare": "husky install && npm run build",
     "test": "karma start karma.unit.js"
   },
-  "author": "hendrich@google.com",
+  "author": "Corti <chrome-dev@corti.ai>",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
@@ -29,7 +29,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/GoogleChromeLabs/dictation_support.git"
+    "url": "https://github.com/corticph/dictation-device-sdk.git"
   },
   "devDependencies": {
     "@types/jasmine": "^4.3.0",

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Dictation support demo</title>
+    <title>Dictation Device SDK demo</title>
 </head>
 
 <body>
@@ -27,7 +27,7 @@
         function deviceToString(device) {
             return JSON.stringify({
                 'id': device.id,
-                'type': DictationSupport.DeviceType[device.getDeviceType()],
+                'type': DictationDeviceSDK.DeviceType[device.getDeviceType()],
             });
         }
 
@@ -41,11 +41,11 @@
 
         function onButtonEvent(device, bitMask) {
             const events = new Set();
-            for (const value of Object.values(DictationSupport.ButtonEvent)) {
+            for (const value of Object.values(DictationDeviceSDK.ButtonEvent)) {
                 const valueAsNumber = Number(value);
                 if (isNaN(valueAsNumber)) continue;
                 if (bitMask & valueAsNumber) {
-                    events.add(DictationSupport.ButtonEvent[valueAsNumber]);
+                    events.add(DictationDeviceSDK.ButtonEvent[valueAsNumber]);
                 }
             }
 
@@ -53,7 +53,7 @@
         }
 
         function onMotionEvent(device, motionEvent) {
-            WriteLog(`onMotionEvent() \t device: ${deviceToString(device)} \t motionEvent: ${DictationSupport.MotionEvent[motionEvent]}`);
+            WriteLog(`onMotionEvent() \t device: ${deviceToString(device)} \t motionEvent: ${DictationDeviceSDK.MotionEvent[motionEvent]}`);
         }
 
         function onDeviceConnected(device) {
@@ -67,7 +67,7 @@
 
         async function init() {
             if (deviceManager === null) {
-                deviceManager = new DictationSupport.DictationDeviceManager();
+                deviceManager = new DictationDeviceSDK.DictationDeviceManager();
                 deviceManager.addButtonEventListener(onButtonEvent);
                 deviceManager.addDeviceConnectedEventListener(onDeviceConnected);
                 deviceManager.addDeviceDisconnectedEventListener(onDeviceDisconnected);
@@ -114,7 +114,7 @@
         async function getEventMode() {
             const device = getDeviceWithSelectedId();
             const eventMode = await device.getEventMode();
-            WriteLog(`getEventMode() \t device: ${deviceToString(device)}} \t eventMode: ${DictationSupport.EventMode[eventMode]}`);
+            WriteLog(`getEventMode() \t device: ${deviceToString(device)}} \t eventMode: ${DictationDeviceSDK.EventMode[eventMode]}`);
         }
 
         async function setEventMode() {

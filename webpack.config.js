@@ -21,7 +21,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const DtsBundlePlugin = require('dts-bundle-webpack');
-const libraryName = 'DictationSupport';
+const libraryName = 'DictationDeviceSDK';
 
 const commonModule = {
   rules: [
